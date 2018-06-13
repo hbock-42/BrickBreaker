@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(MeshCollider))]
@@ -63,7 +61,7 @@ public class Brick : MonoBehaviour, IDamagable, IDestroyable {
 
 	public void Destroy()
 	{
-		Destroy(this.gameObject);
+		Destroy(gameObject);
 	}
 
 	public void TakeDamage(int amount)
