@@ -24,6 +24,16 @@ public static class WorldBounds
 
 	#region Properties
 
+	public static float WorldWidth
+	{
+		get { return Mathf.Abs(BotRightBound.x - UpLeftBound.x); }
+	}
+
+	public static float WorldHeight
+	{
+		get { return Mathf.Abs(BotRightBound.y - UpLeftBound.y); }
+	}
+
 	public static Side HitSide { get; set; }
 
 	public static Vector3 ContactNormal
@@ -52,11 +62,9 @@ public static class WorldBounds
 
 	static WorldBounds()
 	{
-		Camera camera = Camera.main;
-		UpLeftBound = camera.ScreenToWorldPoint(new Vector3(0, camera.pixelHeight, 0));
-		BotRightBound = camera.ScreenToWorldPoint(new Vector3(camera.pixelWidth, 0, 0));
-		Debug.Log(UpLeftBound);
-		Debug.Log(BotRightBound);
+		var camera = Camera.main;
+		UpLeftBound = camera.ScreenToWorldPoint(new Vector3(0, camera.scaledPixelHeight, 0));
+		BotRightBound = camera.ScreenToWorldPoint(new Vector3(camera.scaledPixelWidth, 0, 0));
 	}
 
 	#endregion

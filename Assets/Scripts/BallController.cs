@@ -46,6 +46,8 @@ public class BallController : MonoBehaviour
 		Direction = tmp;
 		_playerCollider = Player.GetComponent<Collider>();
 		PrecomputeDirections();
+
+		Debug.Log(Grid.BrickSize.x + "|" + Grid.BrickSize.y + "|" + Grid.BrickSize.z);
 	}
 
 	private void Update()
@@ -112,7 +114,6 @@ public class BallController : MonoBehaviour
 		{
 			index = (int)(Mathf.Abs(_ball.position.x - xMin) / (xMax - xMin) * DirectionsToCompute);
 		}
-		Debug.Log(index);
 		return index;
 	}
 
