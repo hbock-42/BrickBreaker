@@ -1,16 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 public class PlayerController : MonoBehaviour
 {
+	#region Fields
 
 	private Vector3 _direction;
-	private Transform _player;
 	private float _speed = 10;
 
+	#endregion
+
+	#region Singleton
+
 	public static PlayerController Instance { get; private set; }
+
+	#endregion
+
+	#region MonoBehaviour
 
 	private void Awake()
 	{
@@ -20,10 +26,8 @@ public class PlayerController : MonoBehaviour
 		}
 		else if (Instance != this)
 		{
-			Destroy(this.gameObject);
+			Destroy(gameObject);
 		}
-
-		_player = this.transform;
 	}
 
 	private void Update()
@@ -31,6 +35,10 @@ public class PlayerController : MonoBehaviour
 		ManageInputs();
 		UpdatePosition();
 	}
+
+	#endregion
+
+	#region Methods
 
 	private void ManageInputs()
 	{
@@ -47,7 +55,8 @@ public class PlayerController : MonoBehaviour
 
 	private void UpdatePosition()
 	{
-		//_player.position += _direction * _speed * Time.deltaTime;
-		this.transform.position += _direction * _speed * Time.deltaTime;
+		transform.position += _direction * _speed * Time.deltaTime;
 	}
+
+	#endregion
 }
