@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(SphereCollider))]
 public class BallController : MonoBehaviour
 {
 	#region Constants
@@ -16,10 +17,13 @@ public class BallController : MonoBehaviour
 	private readonly float _speed = 10f;
 	private Vector3[] _precomputedDirections;
 	private Collider _playerCollider;
+	private float _ballRadius;
 
 	#endregion
 
 	#region Properties
+
+	public WorldBounds.Side LastSide { get; set; }
 
 	public Vector3 Direction { get; set; }
 
@@ -35,6 +39,7 @@ public class BallController : MonoBehaviour
 	private void Awake()
 	{
 		_ball = transform;
+		_ballRadius = GetComponent<SphereCollider>().bounds.extents.x;
 		Direction = Random.insideUnitSphere;
 		var tmp = Direction;
 		tmp.z = 0;
@@ -46,6 +51,7 @@ public class BallController : MonoBehaviour
 	private void Update()
 	{
 		Move();
+		ManageWorldBound();
 	}
 
 	#endregion
@@ -55,6 +61,19 @@ public class BallController : MonoBehaviour
 	private void Move()
 	{
 		_ball.position += Direction * _speed * Time.deltaTime;
+	}
+
+	private void ManageWorldBound()
+	{
+		if (!WorldBounds.IsSphereTouching(transform.position, _ballRadius))
+		{
+			LastSide = WorldBounds.Side.None;
+			return;
+		}
+
+		if (WorldBounds.HitSide == LastSide) return;
+		LastSide = WorldBounds.HitSide;
+		Direction = DirectionAfterContact(WorldBounds.ContactNormal);
 	}
 
 	/// <summary>
