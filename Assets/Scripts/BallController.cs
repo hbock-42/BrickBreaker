@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
+	#region Constants
 
 	private const int DirectionsToCompute = 100;
 	private const int PrecomputedDirectionsRangeInDeg = 100;
+
+	#endregion
+
+	#region Fields
 
 	private Transform _ball;
 	private readonly float _speed = 10f;
@@ -15,6 +20,9 @@ public class BallController : MonoBehaviour
 	private Vector3[] _precomputedDirections;
 	private Collider _playerCollider;
 
+	#endregion
+
+	#region Properties
 
 	public Vector3 Direction { get; set; }
 
@@ -22,6 +30,10 @@ public class BallController : MonoBehaviour
 	{
 		get { return PlayerController.Instance.transform; }
 	}
+
+	#endregion
+
+	#region MonoBehaviour
 
 	private void Awake()
 	{
@@ -39,26 +51,20 @@ public class BallController : MonoBehaviour
 		Move();
 	}
 
+	#endregion
+
+	#region Methods
+
 	private void Move()
 	{
 		_ball.position += Direction * _speed * Time.deltaTime;
 	}
 
-	private void OnCollisionEnter(Collision collision)
-	{
-		if (_hit) return;
-		_hit = true;
-		var isPlayer = collision.contacts.FirstOrDefault().otherCollider.CompareTag("Player");
-		if (isPlayer)
-		{
-			Direction = _precomputedDirections[GetOnPlayerHitIndex()];
-		}
-		else
-		{
-			Direction = DirectionAfterContact(NormalOnCollision(collision));
-		}
-	}
-	 
+	/// <summary>
+	/// Calcul the normal on collision (average of the multiple collision points
+	/// </summary>
+	/// <param name="collision"></param>
+	/// <returns></returns>
 	private Vector3 NormalOnCollision(Collision collision)
 	{
 		var normal = Vector3.zero;
@@ -92,17 +98,17 @@ public class BallController : MonoBehaviour
 		else if (_ball.position.x > xMax) index = DirectionsToCompute - 1;
 		else
 		{
-			index = (int) (Mathf.Abs(_ball.position.x - xMin) / (xMax - xMin) * DirectionsToCompute);
+			index = (int)(Mathf.Abs(_ball.position.x - xMin) / (xMax - xMin) * DirectionsToCompute);
 		}
 		Debug.Log(index);
 		return index;
 	}
 
-	private void OnCollisionExit(Collision other)
-	{
-		_hit = false;
-	}
-
+	/// <summary>
+	/// Calcul the new direction given the normal
+	/// </summary>
+	/// <param name="normal"></param>
+	/// <returns></returns>
 	private Vector3 DirectionAfterContact(Vector3 normal)
 	{
 		//Rr = Ri - 2 N (Ri . N)
@@ -120,9 +126,39 @@ public class BallController : MonoBehaviour
 
 		for (var i = 0; i < DirectionsToCompute; i++)
 		{
-			var angle = -(float) PrecomputedDirectionsRangeInDeg / (DirectionsToCompute - 1) * i;
+			var angle = -(float)PrecomputedDirectionsRangeInDeg / (DirectionsToCompute - 1) * i;
 			_precomputedDirections[i] = Quaternion.Euler(0, 0, angle) * startNormal;
 			_precomputedDirections[i].Normalize();
 		}
 	}
+
+	#endregion
+
+	#region Messages
+
+	// We use OnTriggerEnter for collision with the player because we
+	// don't make real "physic" reflection
+	private void OnTriggerEnter(Collider other)
+	{
+		if (!other.CompareTag("Player")) return;
+		Direction = _precomputedDirections[GetOnPlayerHitIndex()];
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (_hit) return;
+		_hit = true;
+		var isPlayer = collision.contacts.FirstOrDefault().otherCollider.CompareTag("Player");
+		if (isPlayer) return;
+		Direction = DirectionAfterContact(NormalOnCollision(collision));
+	}
+
+	private void OnCollisionExit(Collision other)
+	{
+		// TODO remove _hit everywhere, useless
+		_hit = false;
+	}
+
+	#endregion
+	
 }
