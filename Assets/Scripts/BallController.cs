@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -16,7 +14,6 @@ public class BallController : MonoBehaviour
 
 	private Transform _ball;
 	private readonly float _speed = 10f;
-	private bool _hit;
 	private Vector3[] _precomputedDirections;
 	private Collider _playerCollider;
 
@@ -37,7 +34,7 @@ public class BallController : MonoBehaviour
 
 	private void Awake()
 	{
-		_ball = this.transform;
+		_ball = transform;
 		Direction = Random.insideUnitSphere;
 		var tmp = Direction;
 		tmp.z = 0;
@@ -146,17 +143,9 @@ public class BallController : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (_hit) return;
-		_hit = true;
 		var isPlayer = collision.contacts.FirstOrDefault().otherCollider.CompareTag("Player");
 		if (isPlayer) return;
 		Direction = DirectionAfterContact(NormalOnCollision(collision));
-	}
-
-	private void OnCollisionExit(Collision other)
-	{
-		// TODO remove _hit everywhere, useless
-		_hit = false;
 	}
 
 	#endregion
