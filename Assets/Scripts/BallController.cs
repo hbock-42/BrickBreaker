@@ -87,10 +87,6 @@ public class BallController : MonoBehaviour
 
 		int index;
 
-		Debug.Log("min:" + xMin);
-		Debug.Log("ball:" + _ball.position.x);
-		Debug.Log("max:" + xMax);
-
 		if (_ball.position.x < xMin) index = 0;
 		else if (_ball.position.x > xMax) index = DirectionsToCompute - 1;
 		else
@@ -149,5 +145,5 @@ public class BallController : MonoBehaviour
 	}
 
 	#endregion
-	
+
 }

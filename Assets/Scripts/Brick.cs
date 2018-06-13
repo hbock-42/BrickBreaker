@@ -2,7 +2,8 @@
 using UnityEngine.Events;
 
 [RequireComponent(typeof(MeshCollider))]
-public class Brick : MonoBehaviour, IDamagable, IDestroyable {
+public class Brick : MonoBehaviour, IDamagable, IDestroyable
+{
 
 	#region Constants
 
