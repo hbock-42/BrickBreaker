@@ -40,7 +40,7 @@ public static class BrickBuilder
 
 	static BrickBuilder()
 	{
-		Vertices = new Vector3[8];
+		Vertices = new Vector3[24];
 		CalculateVextices();
 		BuildMesh();
 		BuildBrickGameObject();
@@ -56,75 +56,96 @@ public static class BrickBuilder
 		var h = Grid.BrickSize.y / 2f;
 		var d = Grid.BrickSize.z / 2f;
 
-		Vertices[0] = new Vector3(-w, +h, -d);
-		Vertices[1] = new Vector3(+w, +h, -d);
-		Vertices[2] = new Vector3(-w, -h, -d);
-		Vertices[3] = new Vector3(+w, -h, -d);
-		Vertices[4] = new Vector3(-w, +h, +d);
-		Vertices[5] = new Vector3(+w, +h, +d);
-		Vertices[6] = new Vector3(-w, -h, +d);
-		Vertices[7] = new Vector3(+w, -h, +d);
+		Vertices[0] = new Vector3(-w, +h, -d); //A
+		Vertices[1] = new Vector3(+w, +h, -d); //B
+		Vertices[2] = new Vector3(-w, -h, -d); //D
+		Vertices[3] = new Vector3(+w, -h, -d); //C
+		Vertices[4] = new Vector3(-w, +h, d); //E
+		Vertices[5] = new Vector3(+w, +h, d); //F
+		Vertices[6] = new Vector3(-w, +h, -d); //A
+		Vertices[7] = new Vector3(+w, +h, -d); //B
+		Vertices[8] = new Vector3(-w, -h, -d); //D
+		Vertices[9] = new Vector3(+w, -h, -d); //C
+		Vertices[10] = new Vector3(-w, -h, d); //H
+		Vertices[11] = new Vector3(+w, -h, d); //G
+		Vertices[12] = new Vector3(-w, -h, d); //H
+		Vertices[13] = new Vector3(+w, -h, d); //G
+		Vertices[14] = new Vector3(-w, +h, d); //E
+		Vertices[15] = new Vector3(+w, +h, d); //F
+		Vertices[16] = new Vector3(+w, +h, -d); //B
+		Vertices[17] = new Vector3(+w, +h, d); //F
+		Vertices[18] = new Vector3(+w, -h, -d); //C
+		Vertices[19] = new Vector3(+w, -h, d); //G
+		Vertices[20] = new Vector3(-w, +h, d); //E
+		Vertices[21] = new Vector3(-w, +h, -d); //A
+		Vertices[22] = new Vector3(-w, -h, d); //H
+		Vertices[23] = new Vector3(-w, -h, -d); //D
 	}
 
-	// Horrible - I just want to see a result for the moment
+	// Not beautiful, I may want to create some bricks with rounded edges in the future
 	private static void BuildMesh()
 	{
-		//var vertices = new int[8];
-
-		//for (var i = 0; i < vertices.Length; i++)
-		//{
-		//	vertices[i] = Ver
-		//}
-
 		var indices = new int[3 * 12];
 
+		// Triangle 1
 		indices[0] = 0;
 		indices[1] = 1;
 		indices[2] = 2;
 
-		indices[3] = 2;
-		indices[4] = 1;
-		indices[5] = 3;
+		// Triangle 2
+		indices[3] = 1;
+		indices[4] = 3;
+		indices[5] = 2;
 
-		indices[6] = 3;
-		indices[7] = 6;
-		indices[8] = 2;
+		// Triangle 3
+		indices[6] = 4;
+		indices[7] = 5;
+		indices[8] = 6;
 
-		indices[9] = 3;
-		indices[10] = 6;
-		indices[11] = 7;
+		// Triangle 4
+		indices[9] = 5;
+		indices[10] = 7;
+		indices[11] = 6;
 
-		indices[12] = 6;
-		indices[13] = 7;
-		indices[14] = 4;
+		// Triangle 5
+		indices[12] = 8;
+		indices[13] = 9;
+		indices[14] = 10;
 
-		indices[15] = 4;
-		indices[16] = 7;
-		indices[17] = 5;
+		// Triangle 6
+		indices[15] = 9;
+		indices[16] = 11;
+		indices[17] = 10;
 
-		indices[18] = 4;
-		indices[19] = 5;
-		indices[20] = 0;
+		// Triangle 7
+		indices[18] = 12;
+		indices[19] = 13;
+		indices[20] = 14;
 
-		indices[21] = 0;
-		indices[22] = 5;
-		indices[23] = 1;
+		// Triangle 8
+		indices[21] = 13;
+		indices[22] = 15;
+		indices[23] = 14;
 
-		indices[24] = 3;
-		indices[25] = 1;
-		indices[26] = 7;
+		// Triangle 9
+		indices[24] = 16;
+		indices[25] = 17;
+		indices[26] = 18;
 
-		indices[27] = 7;
-		indices[28] = 1;
-		indices[29] = 5;
+		// Triangle 10
+		indices[27] = 17;
+		indices[28] = 19;
+		indices[29] = 18;
 
-		indices[30] = 4;
-		indices[31] = 0;
-		indices[32] = 6;
+		// Triangle 11
+		indices[30] = 20;
+		indices[31] = 21;
+		indices[32] = 22;
 
-		indices[33] = 0;
-		indices[34] = 2;
-		indices[35] = 6;
+		// Triangle 12
+		indices[33] = 21;
+		indices[34] = 23;
+		indices[35] = 22;
 
 		_mesh = new Mesh {vertices = Vertices};
 		_mesh.SetIndices(indices, MeshTopology.Triangles, 0, true);
