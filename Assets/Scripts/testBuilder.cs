@@ -11,7 +11,6 @@ public class testBuilder : MonoBehaviour {
 		if (BrickBuilder.BrickGo.activeSelf)
 		{
 			Debug.Log("Lol");
-
 		}
 	}
 

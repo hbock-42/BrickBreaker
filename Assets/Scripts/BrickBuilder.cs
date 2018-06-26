@@ -2,7 +2,7 @@
 
 // Dirty
 // TODO: Make this works with variable vertices number (SuperVolume repository)
-public static class BrickBuilder
+public static partial class BrickBuilder
 {
 	#region Constants
 
@@ -25,15 +25,6 @@ public static class BrickBuilder
 		get { return _brickGo; }
 	}
 
-	//private static Vector3 V1 { get { return Vertices[0]; } }
-	//private static Vector3 V2 { get { return Vertices[1]; } }
-	//private static Vector3 V3 { get { return Vertices[2]; } }
-	//private static Vector3 V4 { get { return Vertices[3]; } }
-	//private static Vector3 V5 { get { return Vertices[4]; } }
-	//private static Vector3 V6 { get { return Vertices[5]; } }
-	//private static Vector3 V7 { get { return Vertices[6]; } }
-	//private static Vector3 V8 { get { return Vertices[7]; } }
-
 	#endregion
 
 	#region Constructor
@@ -41,7 +32,7 @@ public static class BrickBuilder
 	static BrickBuilder()
 	{
 		Vertices = new Vector3[24];
-		CalculateVextices();
+		GenerateVertices();
 		BuildMesh();
 		BuildBrickGameObject();
 	}
@@ -50,11 +41,11 @@ public static class BrickBuilder
 
 	#region Methods
 
-	private static void CalculateVextices()
+	private static void GenerateVertices()
 	{
-		var w = Grid.BrickSize.x / 2f;
-		var h = Grid.BrickSize.y / 2f;
-		var d = Grid.BrickSize.z / 2f;
+		var w = GridBuilder.CellDimensions.x / 2f;
+		var h = GridBuilder.CellDimensions.y / 2f;
+		var d = GridBuilder.CellDimensions.z / 2f;
 
 		Vertices[0] = new Vector3(-w, +h, -d); //A
 		Vertices[1] = new Vector3(+w, +h, -d); //B
@@ -80,6 +71,8 @@ public static class BrickBuilder
 		Vertices[21] = new Vector3(-w, +h, -d); //A
 		Vertices[22] = new Vector3(-w, -h, d); //H
 		Vertices[23] = new Vector3(-w, -h, -d); //D
+
+		PrintCornersPositions();
 	}
 
 	// Not beautiful, I may want to create some bricks with rounded edges in the future

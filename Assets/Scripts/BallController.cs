@@ -47,7 +47,7 @@ public class BallController : MonoBehaviour
 		_playerCollider = Player.GetComponent<Collider>();
 		PrecomputeDirections();
 
-		Debug.Log(Grid.BrickSize.x + "|" + Grid.BrickSize.y + "|" + Grid.BrickSize.z);
+		Debug.Log(GridBuilder.CellDimensions.x + "|" + GridBuilder.CellDimensions.y + "|" + GridBuilder.CellDimensions.z);
 	}
 
 	private void Update()
