@@ -62,6 +62,7 @@ public static class WorldBounds
 
 	static WorldBounds()
 	{
+		Debug.Log("WorldBounds.cs constructor called");
 		var camera = Camera.main;
 		UpLeftBound = camera.ScreenToWorldPoint(new Vector3(0, camera.scaledPixelHeight, 0));
 		BotRightBound = camera.ScreenToWorldPoint(new Vector3(camera.scaledPixelWidth, 0, 0));

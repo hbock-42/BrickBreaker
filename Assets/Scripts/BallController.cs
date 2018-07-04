@@ -36,7 +36,7 @@ public class BallController : MonoBehaviour
 
 	#region MonoBehaviour
 
-	private void Awake()
+	private void Start()
 	{
 		_ball = transform;
 		_ballRadius = GetComponent<SphereCollider>().bounds.extents.x;

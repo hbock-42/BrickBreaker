@@ -31,6 +31,7 @@ public static partial class BrickBuilder
 
 	static BrickBuilder()
 	{
+		Debug.Log("BrickBuilder.cs constructor called");
 		Vertices = new Vector3[24];
 		GenerateVertices();
 		BuildMesh();

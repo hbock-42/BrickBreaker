@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Data;
 
 /// <summary>
@@ -40,7 +38,7 @@ public static class LevelImport
 	/// <returns></returns>
 	private static bool TryParseLevelArray(string levelString, int width, int height, out int[,] levelArray)
 	{
-		levelArray = new int[width, height];
+		levelArray = new int[height, width];
 		var levelLines = levelString.Split('\n');
 		var levelStringArray = new string[height][];
 
