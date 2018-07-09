@@ -34,6 +34,16 @@ public static class WorldBounds
 		get { return Mathf.Abs(BotRightBound.y - UpLeftBound.y); }
 	}
 
+	public static Vector3 WorldCenter
+	{
+		get { return new Vector3(0.5f * (BotRightBound.x + UpLeftBound.x), 0.5f * (BotRightBound.y + UpLeftBound.y), 0); }
+	}
+
+	public static Vector3 CameraPositionZeroedZ
+	{
+		get { return new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0); }
+	}
+
 	public static Side HitSide { get; set; }
 
 	public static Vector3 ContactNormal
@@ -66,6 +76,9 @@ public static class WorldBounds
 		var camera = Camera.main;
 		UpLeftBound = camera.ScreenToWorldPoint(new Vector3(0, camera.scaledPixelHeight, 0));
 		BotRightBound = camera.ScreenToWorldPoint(new Vector3(camera.scaledPixelWidth, 0, 0));
+
+		Debug.Log("up left world: " + UpLeftBound);
+		Debug.Log("down right world: " + BotRightBound);
 	}
 
 	#endregion

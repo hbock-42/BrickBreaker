@@ -16,12 +16,6 @@ public class testBuilder : MonoBehaviour {
 		GridBuilder.CalculateCellDimensions();
 
 		InstantiateBricks(level);
-
-		////Instantiate(BrickBuilder.BrickGo);
-		//if (BrickBuilder.BrickGo.activeSelf)
-		//{
-		//	Debug.Log("Lol");
-		//}
 	}
 
 	private Level LoadLevel()
@@ -39,7 +33,8 @@ public class testBuilder : MonoBehaviour {
 			{
 				if (level.BrickLevelArray[h, w] == 0) continue;
 				var brick = Instantiate(BrickBuilder.BrickGo);
-				brick.transform.position = new Vector3(horiUnit * w, vertiUnit * h, 0) - new Vector3(WorldBounds.WorldWidth / 2, WorldBounds.WorldHeight / 2, 0);
+				brick.transform.position = new Vector3(horiUnit * w, vertiUnit * h, 0) - new Vector3(WorldBounds.WorldWidth / 2f, WorldBounds.WorldHeight / 2f, 0) + WorldBounds.CameraPositionZeroedZ;
+				Debug.Log("Brick position: " + brick.transform.position);
 				brick.SetActive(true);
 			}
 		}

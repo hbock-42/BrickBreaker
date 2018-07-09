@@ -16,6 +16,7 @@ public static partial class BrickBuilder
 
 	private static void PrintCornersPositions()
 	{
+		Debug.Log("Vertex positions");
 		foreach (var vertexId in VerticesId)
 		{
 			Debug.Log(Vertices[vertexId]);

@@ -44,36 +44,36 @@ public static partial class BrickBuilder
 
 	private static void GenerateVertices()
 	{
-		var w = GridBuilder.CellDimensions.x / 2f;
-		var h = GridBuilder.CellDimensions.y / 2f;
+		var w = GridBuilder.CellDimensions.x ;
+		var h = GridBuilder.CellDimensions.y ;
 		var d = GridBuilder.CellDimensions.z / 2f;
 
-		Vertices[0] = new Vector3(-w, +h, -d); //A
-		Vertices[1] = new Vector3(+w, +h, -d); //B
-		Vertices[2] = new Vector3(-w, -h, -d); //D
-		Vertices[3] = new Vector3(+w, -h, -d); //C
-		Vertices[4] = new Vector3(-w, +h, d); //E
+		Vertices[0] = new Vector3(0, +h, -d); //A
+		Vertices[1] = new Vector3(w, +h, -d); //B
+		Vertices[2] = new Vector3(0, 0, -d); //D
+		Vertices[3] = new Vector3(+w, 0, -d); //C
+		Vertices[4] = new Vector3(0, +h, d); //E
 		Vertices[5] = new Vector3(+w, +h, d); //F
-		Vertices[6] = new Vector3(-w, +h, -d); //A
+		Vertices[6] = new Vector3(0, +h, -d); //A
 		Vertices[7] = new Vector3(+w, +h, -d); //B
-		Vertices[8] = new Vector3(-w, -h, -d); //D
-		Vertices[9] = new Vector3(+w, -h, -d); //C
-		Vertices[10] = new Vector3(-w, -h, d); //H
-		Vertices[11] = new Vector3(+w, -h, d); //G
-		Vertices[12] = new Vector3(-w, -h, d); //H
-		Vertices[13] = new Vector3(+w, -h, d); //G
-		Vertices[14] = new Vector3(-w, +h, d); //E
+		Vertices[8] = new Vector3(0, 0, -d); //D
+		Vertices[9] = new Vector3(+w, 0, -d); //C
+		Vertices[10] = new Vector3(0, 0, d); //H
+		Vertices[11] = new Vector3(+w, 0, d); //G
+		Vertices[12] = new Vector3(0, 0, d); //H
+		Vertices[13] = new Vector3(+w, 0, d); //G
+		Vertices[14] = new Vector3(0, +h, d); //E
 		Vertices[15] = new Vector3(+w, +h, d); //F
 		Vertices[16] = new Vector3(+w, +h, -d); //B
 		Vertices[17] = new Vector3(+w, +h, d); //F
-		Vertices[18] = new Vector3(+w, -h, -d); //C
-		Vertices[19] = new Vector3(+w, -h, d); //G
-		Vertices[20] = new Vector3(-w, +h, d); //E
-		Vertices[21] = new Vector3(-w, +h, -d); //A
-		Vertices[22] = new Vector3(-w, -h, d); //H
-		Vertices[23] = new Vector3(-w, -h, -d); //D
+		Vertices[18] = new Vector3(+w, 0, -d); //C
+		Vertices[19] = new Vector3(+w, 0, d); //G
+		Vertices[20] = new Vector3(0, +h, d); //E
+		Vertices[21] = new Vector3(0, +h, -d); //A
+		Vertices[22] = new Vector3(0, 0, d); //H
+		Vertices[23] = new Vector3(0, 0, -d); //D
 
-		PrintCornersPositions();
+		//PrintCornersPositions();
 	}
 
 	// Not beautiful, I may want to create some bricks with rounded edges in the future
