@@ -14,6 +14,7 @@ public static partial class BrickBuilder
 		10 // H
 	};
 
+	// ReSharper disable once UnusedMember.Local
 	private static void PrintCornersPositions()
 	{
 		Debug.Log("Vertex positions");
